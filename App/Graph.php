@@ -6,6 +6,8 @@
  * Time: 20:16
  */
 
+require_once("Interface/GraphInterface.php");
+
 class Graph implements GraphInterface {
     /**
      * All the nodes in the graph

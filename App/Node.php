@@ -6,6 +6,8 @@
  * Time: 20:17
  */
 
+require_once("Interface/NodeInterface.php");
+
 class Node implements NodeInterface {
     protected $id;
     protected $potential;

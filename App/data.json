@@ -1,0 +1,7 @@
+[
+  {"from":"a","to":"b","price":100},
+  {"from":"c","to":"d","price":300},
+  {"from":"b","to":"c","price":200},
+  {"from":"a","to":"d","price":900},
+  {"from":"b","to":"d","price":300}
+]

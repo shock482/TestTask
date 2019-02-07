@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Test</title>
-</head>
-<body>
-
 <?php
 error_reporting(0);
 require("Graph.php");
 require("Node.php");
 require("Dijkstra.php");
 
+if(isset($_POST['my_button']))
+{
+    $start = $_POST["selectStart"];
+    $finish = $_POST["selectFinish"];
+}
+
+if($start == $finish){
+    echo 'Начальная и конечная точка маршрута совпадают!';
+} else {
     function printShortestPath($from_name, $to_name, $routes)
     {
         $graph = new Graph();
@@ -44,43 +46,39 @@ require("Dijkstra.php");
         echo "Total: " . $g->getDistance() . "<br>";
     }
 
-$buffer = file_get_contents("data.json");
-$data = json_decode($buffer, True);
-//print_r($data);
+    $buffer = file_get_contents("data.json");
+    $data = json_decode($buffer, True);
 
-//$routes = array();
-//$routes[] = array('from' => 'a', 'to' => 'b', 'price' => 100);
-//$routes[] = array('from' => 'c', 'to' => 'd', 'price' => 300);
-//$routes[] = array('from' => 'b', 'to' => 'c', 'price' => 200);
-//$routes[] = array('from' => 'a', 'to' => 'd', 'price' => 900);
-//$routes[] = array('from' => 'b', 'to' => 'd', 'price' => 300);
-
-printShortestPath('a', 'd', $data);
-echo('<br>');
-
-//print_r($routes);
-echo '<pre>';
-//var_dump($routes);
-//print_r($routes);
-echo '<pre>';
-echo('<br>');
-
-//$json = json_encode($routes);
-//echo '<pre>';
-//print_r($json);
-//echo '<pre>';
-//echo('<br>');
-
-//$buffer = file_get_contents("data.json");
-//$data = json_decode($buffer, True);
-////$data = json_decode(json_encode($buffer), True);
-//print_r($data);
-
-?>
-
-<h1>TEST</h1>
-<p><?
-//    printShortestPath('a', 'd', $routes);
-?></p>
-</body>
-</html>
+    $jsonerror = 'Неизвестная ошибка';
+    switch (json_last_error())
+    {
+        case JSON_ERROR_NONE:
+            $jsonerror = '';
+            break;
+        case JSON_ERROR_DEPTH:
+            $jsonerror = 'Достигнута максимальная глубина стека';
+            break;
+        case JSON_ERROR_STATE_MISMATCH:
+            $jsonerror = 'Некорректные разряды или не совпадение режимов';
+            break;
+        case JSON_ERROR_CTRL_CHAR:
+            $jsonerror = 'Некорректный управляющий символ';
+            break;
+        case JSON_ERROR_SYNTAX:
+            $jsonerror = 'Синтаксическая ошибка, не корректный JSON';
+            break;
+        case JSON_ERROR_UTF8:
+            $jsonerror = 'Некорректные символы UTF-8, возможно неверная кодировка';
+            break;
+        default:
+            $jsonerror = 'Неизвестная ошибка';
+            break;
+    }
+    if ($jsonerror != '')
+    {
+        echo $jsonerror;
+    } else {
+        printShortestPath($start, $finish, $data);
+    }
+    echo('<br>');
+}

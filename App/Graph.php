@@ -1,28 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 04.02.2019
- * Time: 20:16
- */
 
 require_once("Interface/GraphInterface.php");
 
 class Graph implements GraphInterface {
-    /**
-     * All the nodes in the graph
-     *
-     * @var array
-     */
+
     protected $nodes = array();
 
-    /**
-     * Adds a new node to the current graph.
-     *
-     * @param Node $node
-     * @return Graph
-     * @throws Exception
-     */
     public function add(NodeInterface $node) {
         if (array_key_exists($node->getId(), $this->getNodes())) {
             throw new Exception('Unable to insert multiple Nodes with the same ID in a Graph');
@@ -31,13 +14,6 @@ class Graph implements GraphInterface {
         return $this;
     }
 
-    /**
-     * Returns the node identified with the $id associated to this graph.
-     *
-     * @param mixed $id
-     * @return Node
-     * @throws Exception
-     */
     public function getNode($id) {
         $nodes = $this->getNodes();
         if (! array_key_exists($id, $nodes)) {
@@ -46,11 +22,6 @@ class Graph implements GraphInterface {
         return $nodes[$id];
     }
 
-    /**
-     * Returns all the nodes that belong to this graph.
-     *
-     * @return Array
-     */
     public function getNodes() {
         return $this->nodes;
     }
